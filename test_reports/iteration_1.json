@@ -1,0 +1,47 @@
+{
+  "summary": "First-run E2E test of Yatra Planning MVP. Backend: 12/13 pytest cases pass. Frontend: home, destinations list, destination detail (Jaipur) with weather panel, hotel search, booking, and Stripe checkout creation all work. One CRITICAL backend bug found: GET /api/payments/status/{session_id} returns 500 due to pydantic validation error inside emergentintegrations library (Stripe SDK returns StripeObject where CheckoutStatusResponse expects dict). This breaks the SuccessPage polling after payment.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "GET /api/payments/status/{session_id}",
+        "issue": "Returns 500. Error: 'Unexpected error retrieving session status: 1 validation error for CheckoutStatusResponse. Input should be a valid dictionary [type=dict_type, input_value=<StripeObject ...>]'. Problem is inside emergentintegrations/payments/stripe/checkout.py line 204 — get_checkout_status() passes a Stripe SDK StripeObject to CheckoutStatusResponse which is a Pydantic model expecting dict. Checkout session is created successfully (POST /api/payments/checkout returns 200 with valid url+session_id) but polling the status fails. This prevents the SuccessPage from ever showing 'confirmed', and bookings never update to status=confirmed via polling (only via webhook).",
+        "priority": "CRITICAL"
+      }
+    ],
+    "minor": [
+      {"endpoint": "GET /api/weather", "issue": "Open-Meteo upstream returns 429 from this IP — expected; fallback activates and returns deterministic 5-day forecast. Works as designed."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Post-payment /success page polling", "issue": "SuccessPage polls /api/payments/status/{session_id} which currently 500s, so users returning from Stripe will see perpetual loading / error state.", "affected_selectors": ["/success page"]}
+    ],
+    "design_issues": [
+      {"screen": "Home / Destination detail", "issues": ["Layout, typography, hero image, weather panel and navbar render cleanly in the cream + indigo + terracotta serif theme as specified."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "URGENT: Fix GET /api/payments/status/{session_id} — the emergentintegrations call `await stripe_checkout.get_checkout_status(session_id)` fails pydantic validation. Work-around options inside server.py: (a) call `stripe.checkout.Session.retrieve(session_id)` directly via the `stripe` SDK already installed, build the response dict manually, and update payment_transactions + bookings accordingly; or (b) wrap the call in try/except CheckoutError and manually pull the session via raw Stripe SDK. Option (a) is cleanest — the Stripe SDK returns a `StripeObject` whose `.to_dict()` gives a plain dict, so the main agent can parse `status`, `payment_status`, `amount_total`, `currency`, `metadata` directly. Keep webhook handler as-is.",
+    "After fix, re-run tests/backend_test.py::TestPayments::test_payment_status and manually verify /success page shows a status."
+  ],
+  "critical_code_review_comments": [
+    "server.py line 296: `logger = logging.getLogger(__name__)` is defined AFTER it is first referenced inside `weather()` at line 133. It works only because Python resolves it at call-time, but it's fragile — move logging setup to top of file, right after imports.",
+    "server.py: STRIPE_API_KEY has `default=\"\"`; a missing key would only fail at Stripe call-time. Consider failing fast on startup if STRIPE_API_KEY is empty.",
+    "server.py uses deprecated `@app.on_event('shutdown')` (FastAPI recommends lifespan handlers), but functional.",
+    "server.py /api/payments/checkout uses `http_request.base_url` to build webhook_url. Behind the ingress this resolves to the internal URL unless trusted-proxy headers are configured; safer to read from env (PUBLIC_BACKEND_URL).",
+    "No pagination on /api/destinations — fine for 8 items today but worth noting."
+  ],
+  "updated_files": ["/app/backend/tests/backend_test.py", "/app/test_reports/iteration_1.json"],
+  "success_rate": {"backend": "92% (12/13)", "frontend": "100% of tested flows (home, destinations list, destination detail, hotel search→book→checkout Stripe session creation)"},
+  "test_credentials": "Guest checkout only. Used traveler_name=TEST_Priya, traveler_email=test_priya@example.com. STRIPE_API_KEY=sk_test_emergent already set in backend/.env.",
+  "seed_data_creation": "Test bookings created with booking_ref prefix YTR-... and traveler names prefixed TEST_ for easy cleanup. E.g., YTR-E6057ED1.",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend has 12 passing pytest cases under /app/backend/tests/backend_test.py. The single failing test is TestPayments::test_payment_status — this is a library-level bug in emergentintegrations.payments.stripe.checkout.get_checkout_status. POST /api/payments/checkout works fine and returns a valid Stripe session URL + id. Frontend uses data-testid consistently: tab-{flights|trains|buses|hotels}, input-city, search-submit-button, result-card-{idx}, book-btn-{idx}, checkout-name, checkout-email, pay-now-button, destination-card-{slug}, destination-link-{slug}, weather-panel, place-card-{idx}. After main agent fixes the payment-status endpoint, re-run the same pytest file.",
+  "rca_of_the_issue": "Root cause: in emergentintegrations/payments/stripe/checkout.py::get_checkout_status (line 193→204) the code constructs `CheckoutStatusResponse(**session)` where `session` is a Stripe SDK `StripeObject`. Pydantic v2 no longer accepts arbitrary mapping-like objects where `dict` is declared; it needs `session.to_dict()` first. Fix at the call-site by replacing the emergentintegrations status call with a direct `stripe.checkout.Session.retrieve()` and manually reading fields. Reproduction: 1) POST /api/bookings → get YTR-*. 2) POST /api/payments/checkout → get session_id. 3) GET /api/payments/status/{session_id} → 500. Mitigation: use direct Stripe SDK inside server.py for the status call; keep emergentintegrations for create_checkout_session (which works) and webhook handling."
+}
