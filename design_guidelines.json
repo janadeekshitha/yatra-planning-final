@@ -1,0 +1,164 @@
+{
+  "theme_and_archetype": {
+    "domain": "Travel Booking \u0026 Hospitality",
+    "theme": "LIGHT",
+    "archetype": "1 (Organic \u0026 Earthy)",
+    "description": "Editorial travel magazine meets modern booking UX. Asymmetrical, luxurious, utilizing generous whitespace and warm earthy tones inspired by Indian landscapes. Avoid generic corporate UI; instead prioritize tactile textures, confident typography, and immersive imagery."
+  },
+  "colors": {
+    "background": {
+      "base": "#FDFBF7",
+      "surface": "#FFFFFF",
+      "alt": "#F4EBE1",
+      "overlay": "rgba(10, 17, 40, 0.4)"
+    },
+    "text": {
+      "primary": "#0A1128",
+      "secondary": "#4A5568",
+      "inverse": "#FFFFFF",
+      "accent": "#B84B20"
+    },
+    "brand": {
+      "primary": "#1A237E",
+      "primary_hover": "#283593",
+      "secondary": "#B84B20",
+      "secondary_hover": "#D85B28",
+      "tertiary": "#D4A373"
+    },
+    "status": {
+      "success": "#2E7D32",
+      "error": "#D32F2F",
+      "warning": "#ED6C02"
+    },
+    "border": {
+      "default": "#E2D8CE",
+      "focus": "#1A237E"
+    }
+  },
+  "typography": {
+    "font_families": {
+      "heading": "'Cormorant Garamond', serif",
+      "body": "'Outfit', sans-serif"
+    },
+    "scales": {
+      "h1": "text-5xl sm:text-6xl+ tracking-tighter leading-none font-medium font-serif",
+      "h2": "text-3xl sm:text-4xl tracking-tight leading-tight font-medium font-serif",
+      "h3": "text-xl sm:text-2xl tracking-tight leading-snug font-serif",
+      "h4": "text-lg sm:text-xl font-medium font-sans",
+      "body": "text-base font-sans text-[#4A5568] leading-relaxed",
+      "small": "text-sm font-sans text-[#4A5568]",
+      "overline": "text-xs font-sans uppercase tracking-[0.2em] font-medium text-[#1A237E]"
+    },
+    "rules": {
+      "headings_never_centered_by_default": true,
+      "avoid_inter_roboto": true,
+      "strong_contrast_weights": true
+    }
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-20 lg:py-32",
+    "card_padding": "p-6 sm:p-8",
+    "gap_standard": "gap-8 lg:gap-12",
+    "grid_modes": {
+      "marketing_bento": "grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-8",
+      "dashboard_data": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
+    },
+    "rules": {
+      "generous_spacing": "Use 2-3x typical padding (e.g., p-8 or p-12 instead of p-4)",
+      "asymmetry_preferred": "Use offset grids and negative space for visual tension",
+      "images_mobile_limit": "max-h-[80vh] object-cover"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#1A237E] text-white hover:bg-[#B84B20] transition-colors duration-300 rounded-none px-8 py-4 font-sans font-medium text-sm tracking-wide",
+      "secondary": "border border-[#1A237E] text-[#1A237E] hover:bg-[#F4EBE1] transition-colors duration-300 rounded-none px-8 py-4 font-sans font-medium text-sm tracking-wide",
+      "ghost": "text-[#1A237E] hover:text-[#B84B20] transition-colors duration-300 font-sans font-medium text-sm hover:bg-transparent"
+    },
+    "cards": {
+      "base": "bg-white border border-[#E2D8CE] rounded-none overflow-hidden",
+      "hover_effect": "hover:shadow-xl hover:-translate-y-1 transition-all duration-300",
+      "glass": "bg-white/70 backdrop-blur-xl border border-white/40 shadow-sm"
+    },
+    "inputs": {
+      "base": "border-b border-[#E2D8CE] bg-transparent rounded-none px-0 py-3 focus:border-[#1A237E] focus:ring-0 transition-colors font-sans text-[#0A1128] placeholder:text-[#4A5568]/50",
+      "label": "text-xs font-sans uppercase tracking-wider text-[#4A5568] mb-1 block"
+    },
+    "navigation": {
+      "header": "fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-[#E2D8CE]",
+      "links": "font-sans text-sm font-medium text-[#0A1128] hover:text-[#B84B20] transition-colors"
+    }
+  },
+  "motion": {
+    "hover_image": "group-hover:scale-105 transition-transform duration-700 ease-out",
+    "page_transition": "opacity-0 animate-in fade-in duration-500",
+    "stagger_list": "animate-in slide-in-from-bottom-4 duration-500 fill-mode-both"
+  },
+  "media": {
+    "hero": [
+      {
+        "url": "https://images.unsplash.com/photo-1712661200122-1574c0bca017?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHw0fHxpbmRpYSUyMHJhamFzdGhhbiUyMHBhbGFjZSUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NzcwMzM4NTF8MA\u0026ixlib=rb-4.1.0\u0026q=85",
+        "description": "White palace architecture, bright and elegant. Use for main hero background, slightly offset or as a large featured image block.",
+        "category": "hero_background"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1705838617550-ae0573ebefc8?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwyfHxrZXJhbGElMjBiYWNrd2F0ZXJzJTIwYm9hdCUyMG5hdHVyZXxlbnwwfHx8fDE3NzcwMzM4NTF8MA\u0026ixlib=rb-4.1.0\u0026q=85",
+        "description": "Kerala backwaters boat surrounded by palm trees. Use for secondary hero or featured destination section.",
+        "category": "hero_featured"
+      }
+    ],
+    "destinations": [
+      {
+        "url": "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/cc9100d3eded0970e67ba29c733655f637c35983ab8b64cc4bff26c3904cebad.png",
+        "description": "Jaipur spice market. Use in destination explorer to show vibrant local culture.",
+        "category": "destination_image"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1749191880983-dcc1afd1ad1e?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBob3RlbCUyMHJlc29ydCUyMG5hdHVyZXxlbnwwfHx8fDE3NzcwMzM4NTF8MA\u0026ixlib=rb-4.1.0\u0026q=85",
+        "description": "Hotel nestled in majestic mountains. Use for destination cards (e.g., Himalayas/North India).",
+        "category": "destination_image"
+      }
+    ],
+    "hotels": [
+      {
+        "url": "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/6e8b3a28622e713381bbcc3ab0f23c6fe366aedbb009fb370a54982f1d7ee1fc.png",
+        "description": "Luxury hotel suite overlooking Himalayas. High-end editorial shot. Use for hotel booking results.",
+        "category": "hotel_room"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1692608582618-b7f6a06d5fea?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBob3RlbCUyMHJlc29ydCUyMG5hdHVyZXxlbnwwfHx8fDE3NzcwMzM4NTF8MA\u0026ixlib=rb-4.1.0\u0026q=85",
+        "description": "Lawn chairs next to a swimming pool. Use for luxury resort listing.",
+        "category": "hotel_exterior"
+      }
+    ],
+    "transportation": [
+      {
+        "url": "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/6ff444a4d27e60e15262364ad6bee021906b96daececc17a9119eff24b46950c.png",
+        "description": "Luxurious train cabin interior in India. Use for train booking results hero/feature.",
+        "category": "train_interior"
+      }
+    ],
+    "misc": [
+      {
+        "url": "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/68d40b51f3cd0c31794676ad3bc24a08939360a263a8c6559cabfad11cf05881.png",
+        "description": "Aesthetic flatlay of a travel itinerary with vintage map. Use for trip summary/itinerary view background or feature.",
+        "category": "itinerary_background"
+      }
+    ]
+  },
+  "icons": {
+    "library": "@phosphor-icons/react",
+    "style": "Duotone or Thin weights to match the elegant editorial vibe. Avoid chunky solid icons."
+  },
+  "specific_page_instructions": {
+    "hero_landing": "Create a split-screen or asymmetrical hero. Left side: The booking widget (flights, trains, buses, hotels) structured elegantly with white background, sharp corners, and thin borders. Right side: A massive, stunning destination image that bleeds off the edge. Do not use a generic center-aligned text-over-image hero.",
+    "booking_widget": "Use a tabbed interface. Active tab has a 2px Indigo underline. Input fields should be borderless or have a single bottom border. Use Shadcn components for Select, DatePicker, and Popover, but strip away the default Vercel look. Make them feel bespoke, using our Cormorant serif for the dates or values.",
+    "destination_explorer": "Use the 'Tetris' bento grid. Mix large images spanning multiple columns with smaller text-focused cards. Implement hover zoom on images. Use the terracotta and ochre accents to highlight 'Best Time to Visit' or 'Popular Spots'. Integrate live weather subtly with elegant iconography.",
+    "booking_results": "For flight/train/bus/hotel lists, avoid standard boxy cards. Use a clean, horizontal list view separated by delicate 1px borders (#E2D8CE). Emphasize the departure/arrival times using the serif font in large sizes. Include prominent filters on the left sidebar.",
+    "checkout_confirmation": "Maintain the editorial feel. The order summary should look like an elegant printed receipt or ticket, using monospace or neat sans-serif alignments. Include the 'travel_itinerary_flatlay' image as a subtle background or side image."
+  },
+  "testing": {
+    "data_testid_requirement": "All interactive elements (tabs, search inputs, booking buttons, filter checkboxes) MUST have a data-testid attribute using kebab-case role-based naming (e.g., flight-search-button, destination-tab, passenger-count-input)."
+  }
+}
