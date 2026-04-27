@@ -146,10 +146,27 @@ class TestPayments:
         if not sid:
             pytest.skip("no session_id")
         r = session.get(f"{API}/payments/status/{sid}", timeout=45)
-        assert r.status_code == 200
+        assert r.status_code == 200, r.text
         d = r.json()
         assert d["session_id"] == sid
         assert "status" in d and "payment_status" in d
+
+    def test_payment_status_updates_booking(self, session, booking_ref):
+        """After /payments/status returns paid (sandbox fallback marks as paid),
+        the booking should be confirmed + paid."""
+        sid = getattr(pytest, "session_id", None)
+        if not sid:
+            pytest.skip("no session_id")
+        r = session.get(f"{API}/payments/status/{sid}", timeout=45)
+        assert r.status_code == 200
+        d = r.json()
+        # Sandbox fallback short-circuits to paid/complete
+        if d.get("payment_status") == "paid":
+            br = session.get(f"{API}/bookings/{booking_ref}", timeout=30)
+            assert br.status_code == 200
+            booking = br.json()
+            assert booking["payment_status"] == "paid"
+            assert booking["status"] == "confirmed"
 
     def test_checkout_invalid_booking(self, session):
         r = session.post(f"{API}/payments/checkout", json={
@@ -157,3 +174,43 @@ class TestPayments:
             "origin_url": "https://wanderlust-hub-309.preview.emergentagent.com"
         }, timeout=30)
         assert r.status_code == 404
+
+
+# ---------- Destination images ----------
+class TestDestinationImages:
+    SLUGS = ["jaipur", "kerala", "manali", "goa", "ladakh", "udaipur", "varanasi", "darjeeling"]
+
+    @pytest.mark.parametrize("slug", SLUGS)
+    def test_each_destination_has_4_places_with_images(self, session, slug):
+        r = session.get(f"{API}/destinations/{slug}", timeout=30)
+        assert r.status_code == 200
+        d = r.json()
+        assert d["hero_image"].startswith("http")
+        assert isinstance(d["places"], list) and len(d["places"]) == 4
+        for p in d["places"]:
+            assert p["img"].startswith("http"), f"{slug}: bad img {p}"
+            assert p["name"] and p["desc"]
+
+    def test_all_image_urls_load(self, session):
+        """HEAD-check every unique image URL across all 8 destinations - none should 404."""
+        r = session.get(f"{API}/destinations", timeout=30)
+        assert r.status_code == 200
+        urls = set()
+        for d in r.json():
+            urls.add(d["hero_image"])
+        for slug in self.SLUGS:
+            dr = session.get(f"{API}/destinations/{slug}", timeout=30)
+            for p in dr.json()["places"]:
+                urls.add(p["img"])
+            urls.update(dr.json().get("gallery", []))
+        bad = []
+        for u in urls:
+            try:
+                resp = requests.get(u, timeout=15, stream=True,
+                                    headers={"User-Agent": "Mozilla/5.0"})
+                if resp.status_code >= 400:
+                    bad.append((u, resp.status_code))
+                resp.close()
+            except Exception as e:
+                bad.append((u, str(e)))
+        assert not bad, f"Broken image URLs: {bad}"

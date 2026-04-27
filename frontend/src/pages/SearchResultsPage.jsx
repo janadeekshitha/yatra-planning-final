@@ -3,6 +3,7 @@ import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SearchWidget from "../components/SearchWidget";
+import SafeImg from "../components/SafeImg";
 import { http, inr } from "../lib/api";
 import { Plane, Train, Bus, BedDouble, Star, Clock, ArrowRight, SlidersHorizontal } from "lucide-react";
 
@@ -137,7 +138,7 @@ function ResultCard({ type, item, onBook, idx }) {
     return (
       <div className="grid grid-cols-12 gap-5 py-6 border-b border-[#E2D8CE] first:border-t" data-testid={`result-card-${idx}`}>
         <div className="col-span-12 sm:col-span-4 img-zoom overflow-hidden">
-          <img src={item.image} alt={item.name} className="w-full h-full object-cover min-h-[200px]"/>
+          <SafeImg src={item.image} alt={item.name} className="w-full h-full object-cover min-h-[200px]"/>
         </div>
         <div className="col-span-12 sm:col-span-5">
           <div className="overline text-[#1A237E]">{"★".repeat(item.stars)} · {item.location}</div>

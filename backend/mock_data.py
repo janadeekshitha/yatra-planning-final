@@ -1,6 +1,40 @@
-"""Curated mock data for Yatra Planning - destinations, places, transport & hotels."""
+"""Curated mock data for Yatra Planning - destinations, places, transport & hotels.
+All image URLs are pre-verified to return 200 OK."""
 import random
-from datetime import datetime, timedelta
+
+# Verified-working Unsplash + curated Emergent images
+IMG = {
+    "palace_jaipur": "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=1200&q=80",
+    "hawa_mahal":    "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=1200&q=80",
+    "jantar":        "https://images.unsplash.com/photo-1524613032530-449a5d94c285?w=1200&q=80",
+    "spice_market":  "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/cc9100d3eded0970e67ba29c733655f637c35983ab8b64cc4bff26c3904cebad.png",
+    "kerala_boat":   "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&q=80",
+    "kerala_hero":   "https://images.unsplash.com/photo-1705838617550-ae0573ebefc8?w=1600&q=85",
+    "kerala_palms":  "https://images.unsplash.com/photo-1519181245277-cffeb31da2e3?w=1200&q=80",
+    "manali_hero":   "https://images.unsplash.com/photo-1749191880983-dcc1afd1ad1e?w=1600&q=85",
+    "manali_alps":   "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&q=80",
+    "mountain":      "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=1200&q=80",
+    "snow_temple":   "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=1200&q=80",
+    "trek":          "https://images.unsplash.com/photo-1571536802807-30451e3955d8?w=1200&q=80",
+    "goa_beach":     "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=1600&q=85",
+    "beach_palms":   "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+    "church":        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&q=80",
+    "waterfall":     "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",
+    "village":       "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&q=80",
+    "lake":          "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1600&q=85",
+    "dunes":         "https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=1200&q=80",
+    "monastery":     "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1200&q=80",
+    "desert":        "https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=1200&q=80",
+    "udaipur_lake":  "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=1600&q=85",
+    "udaipur_palace":"https://images.unsplash.com/photo-1611516491426-03025e6043c8?w=1200&q=80",
+    "haveli":        "https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=1200&q=80",
+    "varanasi_hero": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=1600&q=85",
+    "river":         "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=80",
+    "luxury_room":   "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/6e8b3a28622e713381bbcc3ab0f23c6fe366aedbb009fb370a54982f1d7ee1fc.png",
+    "resort":        "https://images.unsplash.com/photo-1692608582618-b7f6a06d5fea?w=1200&q=85",
+    "main_palace":   "https://images.unsplash.com/photo-1712661200122-1574c0bca017?w=1600&q=85",
+}
+
 
 DESTINATIONS = [
     {
@@ -9,18 +43,15 @@ DESTINATIONS = [
         "tagline": "The Pink City of Palaces",
         "state": "Rajasthan, India",
         "lat": 26.9124, "lon": 75.7873,
-        "hero_image": "https://images.unsplash.com/photo-1712661200122-1574c0bca017?crop=entropy&cs=srgb&fm=jpg&q=85",
-        "gallery": [
-            "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/cc9100d3eded0970e67ba29c733655f637c35983ab8b64cc4bff26c3904cebad.png",
-            "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=1200&q=80",
-        ],
+        "hero_image": IMG["main_palace"],
+        "gallery": [IMG["spice_market"], IMG["hawa_mahal"]],
         "about": "A vibrant city where rose-tinted sandstone palaces, bustling bazaars, and regal forts narrate tales of Rajput royalty. Every corner is a canvas of culture.",
         "best_time": "Oct – Mar",
         "places": [
-            {"name": "Amber Fort", "img": "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=800&q=80", "desc": "Majestic hilltop fort with intricate mirror work."},
-            {"name": "Hawa Mahal", "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80", "desc": "The iconic 953-windowed Palace of Winds."},
-            {"name": "City Palace", "img": "https://images.unsplash.com/photo-1587295999814-1e1ef3ba1c48?w=800&q=80", "desc": "A royal residence blending Rajput and Mughal architecture."},
-            {"name": "Jantar Mantar", "img": "https://images.unsplash.com/photo-1524613032530-449a5d94c285?w=800&q=80", "desc": "UNESCO-listed astronomical observatory."},
+            {"name": "Amber Fort",   "img": IMG["palace_jaipur"], "desc": "Majestic hilltop fort with intricate mirror work."},
+            {"name": "Hawa Mahal",   "img": IMG["hawa_mahal"],    "desc": "The iconic 953-windowed Palace of Winds."},
+            {"name": "City Palace",  "img": IMG["udaipur_palace"],"desc": "A royal residence blending Rajput and Mughal architecture."},
+            {"name": "Jantar Mantar","img": IMG["jantar"],        "desc": "UNESCO-listed astronomical observatory."},
         ],
     },
     {
@@ -29,18 +60,15 @@ DESTINATIONS = [
         "tagline": "God's Own Backwaters",
         "state": "Kerala, India",
         "lat": 9.9312, "lon": 76.2673,
-        "hero_image": "https://images.unsplash.com/photo-1705838617550-ae0573ebefc8?crop=entropy&cs=srgb&fm=jpg&q=85",
-        "gallery": [
-            "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&q=80",
-            "https://images.unsplash.com/photo-1609340737055-df3ee5b42f5e?w=1200&q=80",
-        ],
+        "hero_image": IMG["kerala_hero"],
+        "gallery": [IMG["kerala_boat"], IMG["kerala_palms"]],
         "about": "Drift through emerald backwaters on a houseboat, savour coconut-laced curries, and let Ayurvedic traditions slow your pulse to the rhythm of the tides.",
         "best_time": "Sep – Mar",
         "places": [
-            {"name": "Alleppey Backwaters", "img": "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80", "desc": "Iconic houseboat cruises through palm-lined canals."},
-            {"name": "Munnar Tea Gardens", "img": "https://images.unsplash.com/photo-1609340737055-df3ee5b42f5e?w=800&q=80", "desc": "Rolling emerald hills of fragrant tea estates."},
-            {"name": "Fort Kochi", "img": "https://images.unsplash.com/photo-1582804568912-5a8b30fb6ab2?w=800&q=80", "desc": "Colonial lanes, Chinese fishing nets, and art cafes."},
-            {"name": "Varkala Cliff", "img": "https://images.unsplash.com/photo-1519181245277-cffeb31da2e3?w=800&q=80", "desc": "Dramatic red cliffs overlooking the Arabian Sea."},
+            {"name": "Alleppey Backwaters", "img": IMG["kerala_boat"],  "desc": "Iconic houseboat cruises through palm-lined canals."},
+            {"name": "Munnar Tea Gardens",  "img": IMG["kerala_palms"], "desc": "Rolling emerald hills of fragrant tea estates."},
+            {"name": "Fort Kochi",          "img": IMG["village"],      "desc": "Colonial lanes, Chinese fishing nets, and art cafes."},
+            {"name": "Varkala Cliff",       "img": IMG["beach_palms"],  "desc": "Dramatic red cliffs overlooking the Arabian Sea."},
         ],
     },
     {
@@ -49,18 +77,15 @@ DESTINATIONS = [
         "tagline": "Where Mountains Whisper",
         "state": "Himachal Pradesh, India",
         "lat": 32.2396, "lon": 77.1887,
-        "hero_image": "https://images.unsplash.com/photo-1749191880983-dcc1afd1ad1e?crop=entropy&cs=srgb&fm=jpg&q=85",
-        "gallery": [
-            "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&q=80",
-            "https://images.unsplash.com/photo-1626621334049-d8e2c7eeb1e9?w=1200&q=80",
-        ],
+        "hero_image": IMG["manali_hero"],
+        "gallery": [IMG["manali_alps"], IMG["mountain"]],
         "about": "A Himalayan refuge of pine-scented valleys, snow-laced peaks, and apple orchards — ideal for trekkers, dreamers, and those seeking crisp alpine air.",
         "best_time": "Mar – Jun, Dec – Feb",
         "places": [
-            {"name": "Rohtang Pass", "img": "https://images.unsplash.com/photo-1626621334049-d8e2c7eeb1e9?w=800&q=80", "desc": "Snow-capped pass at 3,978m with panoramic Himalayan views."},
-            {"name": "Solang Valley", "img": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=80", "desc": "Adventure hub for paragliding and winter skiing."},
-            {"name": "Hadimba Temple", "img": "https://images.unsplash.com/photo-1609920658906-8223bd289001?w=800&q=80", "desc": "Ancient cedar-wood temple hidden in deodar forests."},
-            {"name": "Old Manali", "img": "https://images.unsplash.com/photo-1532664189809-02133fee698d?w=800&q=80", "desc": "Boho cafes, riverside walks, and mountain music."},
+            {"name": "Rohtang Pass",   "img": IMG["mountain"],   "desc": "Snow-capped pass at 3,978m with panoramic Himalayan views."},
+            {"name": "Solang Valley",  "img": IMG["manali_alps"],"desc": "Adventure hub for paragliding and winter skiing."},
+            {"name": "Hadimba Temple", "img": IMG["snow_temple"],"desc": "Ancient cedar-wood temple hidden in deodar forests."},
+            {"name": "Old Manali",     "img": IMG["trek"],       "desc": "Boho cafes, riverside walks, and mountain music."},
         ],
     },
     {
@@ -69,18 +94,15 @@ DESTINATIONS = [
         "tagline": "Sun-drenched Shores & Portuguese Soul",
         "state": "Goa, India",
         "lat": 15.2993, "lon": 74.1240,
-        "hero_image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1600&q=85",
-        "gallery": [
-            "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=80",
-            "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=1200&q=80",
-        ],
+        "hero_image": IMG["goa_beach"],
+        "gallery": [IMG["beach_palms"], IMG["church"]],
         "about": "Where palm-fringed beaches meet Portuguese villas, flea-market nights, and the kind of sunsets that slow time itself.",
         "best_time": "Nov – Feb",
         "places": [
-            {"name": "Palolem Beach", "img": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80", "desc": "Crescent-shaped beach with silent discos and sea kayaks."},
-            {"name": "Basilica of Bom Jesus", "img": "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800&q=80", "desc": "UNESCO baroque church housing sacred relics."},
-            {"name": "Dudhsagar Falls", "img": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80", "desc": "Four-tiered 310m waterfall amid jungle."},
-            {"name": "Fontainhas", "img": "https://images.unsplash.com/photo-1589308078054-832a6e7c1d7b?w=800&q=80", "desc": "Goa's Latin Quarter with pastel-painted lanes."},
+            {"name": "Palolem Beach",         "img": IMG["beach_palms"], "desc": "Crescent-shaped beach with silent discos and sea kayaks."},
+            {"name": "Basilica of Bom Jesus", "img": IMG["church"],      "desc": "UNESCO baroque church housing sacred relics."},
+            {"name": "Dudhsagar Falls",       "img": IMG["waterfall"],   "desc": "Four-tiered 310m waterfall amid jungle."},
+            {"name": "Fontainhas",            "img": IMG["village"],     "desc": "Goa's Latin Quarter with pastel-painted lanes."},
         ],
     },
     {
@@ -89,18 +111,15 @@ DESTINATIONS = [
         "tagline": "Land of High Passes",
         "state": "Ladakh, India",
         "lat": 34.1526, "lon": 77.5771,
-        "hero_image": "https://images.unsplash.com/photo-1589308078054-832a6e7c1d7b?w=1600&q=85",
-        "gallery": [
-            "https://images.unsplash.com/photo-1603261519334-e0e5e5a59e35?w=1200&q=80",
-            "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=1200&q=80",
-        ],
+        "hero_image": IMG["lake"],
+        "gallery": [IMG["dunes"], IMG["monastery"]],
         "about": "A high-altitude desert of turquoise lakes, moonlike valleys, and Buddhist monasteries perched on improbable cliffs.",
         "best_time": "May – Sep",
         "places": [
-            {"name": "Pangong Lake", "img": "https://images.unsplash.com/photo-1603261519334-e0e5e5a59e35?w=800&q=80", "desc": "Surreal lake shifting through cobalt and sapphire hues."},
-            {"name": "Nubra Valley", "img": "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80", "desc": "Sand dunes, Bactrian camels, and alpine villages."},
-            {"name": "Thiksey Monastery", "img": "https://images.unsplash.com/photo-1567596275753-9ba48d1635c0?w=800&q=80", "desc": "12-storey gompa echoing Potala Palace."},
-            {"name": "Magnetic Hill", "img": "https://images.unsplash.com/photo-1583766395091-2eb9994ed094?w=800&q=80", "desc": "Optical-illusion slope defying gravity."},
+            {"name": "Pangong Lake",      "img": IMG["lake"],     "desc": "Surreal lake shifting through cobalt and sapphire hues."},
+            {"name": "Nubra Valley",      "img": IMG["dunes"],    "desc": "Sand dunes, Bactrian camels, and alpine villages."},
+            {"name": "Thiksey Monastery", "img": IMG["monastery"],"desc": "12-storey gompa echoing Potala Palace."},
+            {"name": "Magnetic Hill",     "img": IMG["desert"],   "desc": "Optical-illusion slope defying gravity."},
         ],
     },
     {
@@ -109,18 +128,15 @@ DESTINATIONS = [
         "tagline": "The Venice of the East",
         "state": "Rajasthan, India",
         "lat": 24.5854, "lon": 73.7125,
-        "hero_image": "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=1600&q=85",
-        "gallery": [
-            "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=1200&q=80",
-            "https://images.unsplash.com/photo-1524613032530-449a5d94c285?w=1200&q=80",
-        ],
+        "hero_image": IMG["udaipur_lake"],
+        "gallery": [IMG["udaipur_palace"], IMG["haveli"]],
         "about": "Shimmering lake palaces, marble courtyards, and candlelit boat rides compose Udaipur's timeless romance.",
         "best_time": "Sep – Mar",
         "places": [
-            {"name": "Lake Pichola", "img": "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80", "desc": "Iconic lake encircling the City Palace and Jag Mandir."},
-            {"name": "City Palace Udaipur", "img": "https://images.unsplash.com/photo-1524613032530-449a5d94c285?w=800&q=80", "desc": "Sprawling royal complex overlooking the lake."},
-            {"name": "Sajjangarh Monsoon Palace", "img": "https://images.unsplash.com/photo-1587295999814-1e1ef3ba1c48?w=800&q=80", "desc": "Hilltop palace gazing at the Aravalli sunset."},
-            {"name": "Bagore Ki Haveli", "img": "https://images.unsplash.com/photo-1609920658906-8223bd289001?w=800&q=80", "desc": "Heritage mansion with nightly folk performances."},
+            {"name": "Lake Pichola",            "img": IMG["udaipur_lake"],  "desc": "Iconic lake encircling the City Palace and Jag Mandir."},
+            {"name": "City Palace Udaipur",     "img": IMG["udaipur_palace"],"desc": "Sprawling royal complex overlooking the lake."},
+            {"name": "Sajjangarh Monsoon Palace","img": IMG["palace_jaipur"],"desc": "Hilltop palace gazing at the Aravalli sunset."},
+            {"name": "Bagore Ki Haveli",        "img": IMG["haveli"],        "desc": "Heritage mansion with nightly folk performances."},
         ],
     },
     {
@@ -129,18 +145,15 @@ DESTINATIONS = [
         "tagline": "City of Eternal Light",
         "state": "Uttar Pradesh, India",
         "lat": 25.3176, "lon": 82.9739,
-        "hero_image": "https://images.unsplash.com/photo-1561361398-a8d0fdb4c069?w=1600&q=85",
-        "gallery": [
-            "https://images.unsplash.com/photo-1561361523-9f9c5a2fe7f7?w=1200&q=80",
-            "https://images.unsplash.com/photo-1567201078541-23f04dc9775b?w=1200&q=80",
-        ],
+        "hero_image": IMG["varanasi_hero"],
+        "gallery": [IMG["river"], IMG["haveli"]],
         "about": "One of the world's oldest living cities — where dawn Aartis, funeral pyres, and silk looms coexist along the sacred Ganga.",
         "best_time": "Oct – Mar",
         "places": [
-            {"name": "Dashashwamedh Ghat", "img": "https://images.unsplash.com/photo-1561361523-9f9c5a2fe7f7?w=800&q=80", "desc": "Nightly Ganga Aarti of fire and chants."},
-            {"name": "Sarnath", "img": "https://images.unsplash.com/photo-1567201078541-23f04dc9775b?w=800&q=80", "desc": "Where Buddha preached his first sermon."},
-            {"name": "Assi Ghat", "img": "https://images.unsplash.com/photo-1582211600608-85d64a68cb38?w=800&q=80", "desc": "Quiet riverfront beloved by poets and pilgrims."},
-            {"name": "Kashi Vishwanath", "img": "https://images.unsplash.com/photo-1604423481801-74e5a9d8c4b7?w=800&q=80", "desc": "Golden-spired Shiva temple at the city's heart."},
+            {"name": "Dashashwamedh Ghat", "img": IMG["varanasi_hero"], "desc": "Nightly Ganga Aarti of fire and chants."},
+            {"name": "Sarnath",            "img": IMG["monastery"],     "desc": "Where Buddha preached his first sermon."},
+            {"name": "Assi Ghat",          "img": IMG["river"],         "desc": "Quiet riverfront beloved by poets and pilgrims."},
+            {"name": "Kashi Vishwanath",   "img": IMG["snow_temple"],   "desc": "Golden-spired Shiva temple at the city's heart."},
         ],
     },
     {
@@ -149,18 +162,15 @@ DESTINATIONS = [
         "tagline": "Queen of the Himalayan Hills",
         "state": "West Bengal, India",
         "lat": 27.0360, "lon": 88.2627,
-        "hero_image": "https://images.unsplash.com/photo-1609340737055-df3ee5b42f5e?w=1600&q=85",
-        "gallery": [
-            "https://images.unsplash.com/photo-1626621334049-d8e2c7eeb1e9?w=1200&q=80",
-            "https://images.unsplash.com/photo-1532664189809-02133fee698d?w=1200&q=80",
-        ],
+        "hero_image": IMG["mountain"],
+        "gallery": [IMG["manali_alps"], IMG["trek"]],
         "about": "Mist-laced tea gardens, the UNESCO toy-train, and daybreak views of Kanchenjunga's silver spire.",
         "best_time": "Mar – May, Oct – Dec",
         "places": [
-            {"name": "Tiger Hill", "img": "https://images.unsplash.com/photo-1626621334049-d8e2c7eeb1e9?w=800&q=80", "desc": "Sunrise vistas over Kanchenjunga and Everest."},
-            {"name": "Happy Valley Tea Estate", "img": "https://images.unsplash.com/photo-1609340737055-df3ee5b42f5e?w=800&q=80", "desc": "Colonial-era plantation with tea-tasting tours."},
-            {"name": "Batasia Loop", "img": "https://images.unsplash.com/photo-1532664189809-02133fee698d?w=800&q=80", "desc": "Spiral toy-train rail with memorial gardens."},
-            {"name": "Peace Pagoda", "img": "https://images.unsplash.com/photo-1567596275753-9ba48d1635c0?w=800&q=80", "desc": "Serene Buddhist stupa with panoramic views."},
+            {"name": "Tiger Hill",             "img": IMG["mountain"],   "desc": "Sunrise vistas over Kanchenjunga and Everest."},
+            {"name": "Happy Valley Tea Estate","img": IMG["kerala_palms"],"desc": "Colonial-era plantation with tea-tasting tours."},
+            {"name": "Batasia Loop",           "img": IMG["trek"],       "desc": "Spiral toy-train rail with memorial gardens."},
+            {"name": "Peace Pagoda",           "img": IMG["monastery"],  "desc": "Serene Buddhist stupa with panoramic views."},
         ],
     },
 ]
@@ -169,8 +179,7 @@ AIRLINES = ["IndiGo", "Vistara", "Air India", "SpiceJet", "Akasa Air", "Go First
 TRAIN_OPS = ["Rajdhani Express", "Shatabdi Express", "Vande Bharat", "Duronto Express", "Tejas Express"]
 BUS_OPS = ["RedExpress Travels", "VRL Luxury", "Orange Tours", "SRS Sleeper", "Zingbus Premium"]
 HOTEL_IMGS = [
-    "https://static.prod-images.emergentagent.com/jobs/9652a5fd-9e96-4105-b768-e26038faca3c/images/6e8b3a28622e713381bbcc3ab0f23c6fe366aedbb009fb370a54982f1d7ee1fc.png",
-    "https://images.unsplash.com/photo-1692608582618-b7f6a06d5fea?crop=entropy&cs=srgb&fm=jpg&q=85",
+    IMG["luxury_room"], IMG["resort"],
     "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
     "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&q=80",
     "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",

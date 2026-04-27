@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { http } from "../lib/api";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import SafeImg from "./SafeImg";
 
 export default function DestinationBento() {
   const [items, setItems] = useState([]);
@@ -10,7 +11,7 @@ export default function DestinationBento() {
   const big = items[0], two = items[1], three = items[2], four = items[3], five = items[4], six = items[5];
   const Card = ({ d, className="", big=false }) => (
     <Link to={`/destination/${d.slug}`} data-testid={`destination-card-${d.slug}`} className={`group relative img-zoom overflow-hidden ${className}`}>
-      <img src={d.hero_image} alt={d.name} className="w-full h-full object-cover"/>
+      <SafeImg src={d.hero_image} alt={d.name} className="w-full h-full object-cover"/>
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"/>
       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
         <div className="overline opacity-80">{d.state}</div>

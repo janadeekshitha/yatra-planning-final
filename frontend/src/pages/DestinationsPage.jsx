@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SafeImg from "../components/SafeImg";
 import { http } from "../lib/api";
 import { Link } from "react-router-dom";
 
@@ -19,7 +20,7 @@ export default function DestinationsPage() {
           {items.map(d => (
             <Link to={`/destination/${d.slug}`} key={d.slug} data-testid={`destination-link-${d.slug}`} className="group card-hover block">
               <div className="img-zoom overflow-hidden">
-                <img src={d.hero_image} alt={d.name} className="w-full h-[360px] object-cover"/>
+                <SafeImg src={d.hero_image} alt={d.name} className="w-full h-[360px] object-cover"/>
               </div>
               <div className="p-5 border border-t-0 border-[#E2D8CE] bg-white">
                 <div className="overline text-[#1A237E]">{d.state}</div>

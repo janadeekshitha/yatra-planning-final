@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import WeatherPanel from "../components/WeatherPanel";
+import SafeImg from "../components/SafeImg";
 import { http } from "../lib/api";
 import { MapPin, Calendar, ArrowRight } from "lucide-react";
 
@@ -19,7 +20,7 @@ export default function DestinationDetailPage() {
         {/* Hero */}
         <section className="relative">
           <div className="img-zoom overflow-hidden">
-            <img src={d.hero_image} alt={d.name} className="w-full h-[80vh] object-cover"/>
+            <SafeImg src={d.hero_image} alt={d.name} className="w-full h-[80vh] object-cover"/>
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"/>
           <div className="absolute bottom-0 left-0 right-0">
@@ -54,7 +55,7 @@ export default function DestinationDetailPage() {
             {d.places.map((p, i) => (
               <div key={p.name} data-testid={`place-card-${i}`} className="grid grid-cols-12 gap-5 card-hover">
                 <div className="col-span-5 img-zoom overflow-hidden">
-                  <img src={p.img} alt={p.name} className="w-full h-full object-cover min-h-[180px]"/>
+                  <SafeImg src={p.img} alt={p.name} className="w-full h-full object-cover min-h-[180px]"/>
                 </div>
                 <div className="col-span-7 py-2">
                   <div className="overline text-[#1A237E]">No. {String(i+1).padStart(2,"0")}</div>
